@@ -29,12 +29,20 @@ require 'mina/rails'
 # Sets the access token for your Rollbar account.  Required.
 set_default :rollbar_access_token, nil
 
+# ### rollbar_username
+# Sets the Rollbar.io username of the user who deployed.  Optional.
 set_default :rollbar_username, nil
 
-set_default :rollbar_local_username, nil
+# ### rollbar_local_username
+# Sets the name of the user who deployed.  Defaults to `whoami`.  Optional.
+set_default :rollbar_local_username, %x[whoami] rescue nil
 
+# ### rollbar_comment
+# Sets a deployment comment (what was deployed, etc.).  Optional.
 set_default :rollbar_comment, nil
 
+# ### rollbar_notification_debug
+# If true, enables verbosity in the notification to help debug issues.  Defaults to false.
 set_default :rollbar_notification_debug, false
 
 namespace :rollbar do
