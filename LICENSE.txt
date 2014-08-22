@@ -1,4 +1,4 @@
-Copyright (c) 2014 Nick Veys
+Copyright (c) 2014 Aramis Group, LLC dba code lever
 
 MIT License
 
