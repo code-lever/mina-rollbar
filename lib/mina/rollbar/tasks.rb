@@ -51,12 +51,12 @@ namespace :rollbar do
   task notify: :environment do
 
     unless rollbar_access_token
-      error 'Must set your `:rollbar_access_token` to notify'
+      print_error 'Must set your `:rollbar_access_token` to notify'
       exit
     end
 
     unless branch? || commit?
-      error 'Must define either `:branch` or `:commit`'
+      print_error 'Must define either `:branch` or `:commit`'
       exit
     end
 
