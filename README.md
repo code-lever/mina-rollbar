@@ -20,6 +20,8 @@ And then execute:
 
 ## Usage
 
+**Note:** Currently requires `curl` to be present on the server for notifications to be sent.  Patches happily accepted to improve this limitation!
+
     require 'mina/rollbar'
 
     ...
