@@ -11,4 +11,6 @@
 *.so
 *.o
 *.a
+*.exe
 mkmf.log
+.idea
