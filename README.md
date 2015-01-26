@@ -1,6 +1,6 @@
 # Mina::Rollbar [![Build Status](https://travis-ci.org/code-lever/mina-rollbar.png)](https://travis-ci.org/code-lever/mina-rollbar) [![Dependency Status](https://gemnasium.com/code-lever/mina-rollbar.png)](https://gemnasium.com/code-lever/mina-rollbar) [![Code Climate](https://codeclimate.com/github/code-lever/mina-rollbar.png)](https://codeclimate.com/github/code-lever/mina-rollbar)
 
-[Mina](https://github.com/mina-deploy/mina) tasks for interacting with [Rollbar.io](http://rollbar.io).
+[Mina](https://github.com/mina-deploy/mina) tasks for interacting with [Rollbar](http://rollbar.com).
 
 Adds the following tasks:
 
@@ -43,8 +43,8 @@ And then execute:
 
 | Name                         | Description                                        |
 | ---------------------------- | -------------------------------------------------- |
-| `rollbar_access_token`       | Rollbar.io access token (post_server_item token)   |
-| `rollbar_username`           | Rollbar.io username of deploying user (optional)   |
+| `rollbar_access_token`       | Rollbar access token (post_server_item token)   |
+| `rollbar_username`           | Rollbar username of deploying user (optional)   |
 | `rollbar_local_username`     | Local username of deploying user (optional)        |
 | `rollbar_comment`            | Comment for this deployment (optional)             |
 | `rollbar_notification_debug` | `true` to enable notification debugging info       |
