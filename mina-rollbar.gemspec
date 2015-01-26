@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Mina::Rollbar::VERSION
   spec.authors       = ['Nick Veys']
   spec.email         = ['nick@codelever.com']
-  spec.summary       = %q{Mina tasks for Rollbar.io}
-  spec.description   = %q{Notify Rollbar.io of Mina deployments.}
+  spec.summary       = %q{Mina tasks for Rollbar}
+  spec.description   = %q{Notify Rollbar of Mina deployments.}
   spec.homepage      = 'https://github.com/code-lever/mina-rollbar'
   spec.license       = 'MIT'
 

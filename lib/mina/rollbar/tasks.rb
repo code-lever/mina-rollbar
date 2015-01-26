@@ -30,7 +30,7 @@ require 'mina/rails'
 set_default :rollbar_access_token, nil
 
 # ### rollbar_username
-# Sets the Rollbar.io username of the user who deployed.  Optional.
+# Sets the Rollbar username of the user who deployed.  Optional.
 set_default :rollbar_username, nil
 
 # ### rollbar_local_username
@@ -47,7 +47,7 @@ set_default :rollbar_notification_debug, false
 
 namespace :rollbar do
 
-  desc 'Notifies Rollbar.io of your deployment'
+  desc 'Notifies Rollbar of your deployment'
   task notify: :environment do
 
     unless rollbar_access_token
@@ -71,7 +71,7 @@ namespace :rollbar do
     script << "-F rollbar_username=#{rollbar_username}" if rollbar_username
     script << "-F comment=#{rollbar_comment}" if rollbar_comment
 
-    queue! 'echo "-----> Notifying Rollbar.io of deployment"'
+    queue! 'echo "-----> Notifying Rollbar of deployment"'
     queue! %[#{script.join(' ')}]
 
   end
