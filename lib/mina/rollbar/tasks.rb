@@ -35,7 +35,7 @@ set_default :rollbar_username, nil
 
 # ### rollbar_local_username
 # Sets the name of the user who deployed.  Defaults to `whoami`.  Optional.
-set_default :rollbar_local_username, %x[whoami] rescue nil
+set_default :rollbar_local_username, %x[whoami].strip rescue nil
 
 # ### rollbar_comment
 # Sets a deployment comment (what was deployed, etc.).  Optional.
