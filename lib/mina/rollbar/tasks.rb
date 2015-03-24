@@ -62,7 +62,7 @@ namespace :rollbar do
 
     revision = commit? ? commit : %x[git rev-parse #{branch}].strip
 
-    silent = rollbar_notification_debug ? '' : '-s -o /dev/null'
+    silent = rollbar_notification_debug ? '-v' : '-s -o /dev/null'
     script = ["curl #{silent} https://api.rollbar.com/api/1/deploy/"]
     script << "-F access_token=#{rollbar_access_token}"
     script << "-F environment=#{rails_env}"
