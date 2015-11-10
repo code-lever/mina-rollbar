@@ -43,11 +43,12 @@ And then execute:
 
 | Name                         | Description                                        |
 | ---------------------------- | -------------------------------------------------- |
-| `rollbar_access_token`       | Rollbar access token (post_server_item token)   |
-| `rollbar_username`           | Rollbar username of deploying user (optional)   |
+| `rollbar_access_token`       | Rollbar access token (post_server_item token)      |
+| `rollbar_username`           | Rollbar username of deploying user (optional)      |
 | `rollbar_local_username`     | Local username of deploying user (optional)        |
 | `rollbar_comment`            | Comment for this deployment (optional)             |
 | `rollbar_notification_debug` | `true` to enable notification debugging info       |
+| `rollbar_environment`        | Deployment environment string, defaults to `rails_env` |
 
 ## Contributing
 
