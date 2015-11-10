@@ -46,8 +46,8 @@ set_default :rollbar_comment, nil
 set_default :rollbar_notification_debug, false
 
 # ### :rollbar_environment
-# Sets the rollbar environment being deployed.  Defaults to `rails_env`.
-set_default :rollbar_environment, rails_env
+# Sets the rollbar environment being deployed.  If left un-set, will default to `rails_env` value.
+set_default :rollbar_environment, nil
 
 namespace :rollbar do
 
@@ -69,7 +69,11 @@ namespace :rollbar do
     silent = rollbar_notification_debug ? '-v' : '-s -o /dev/null'
     script = ["curl #{silent} https://api.rollbar.com/api/1/deploy/"]
     script << "-F access_token=#{rollbar_access_token}"
-    script << "-F environment=#{rollbar_environment}"
+    if rollbar_environment
+      script << "-F environment=#{rollbar_environment}"
+    else
+      script << "-F environment=#{rails_env}"
+    end
     script << "-F revision=#{revision}"
     script << "-F local_username=#{rollbar_local_username}" if rollbar_local_username
     script << "-F rollbar_username=#{rollbar_username}" if rollbar_username
