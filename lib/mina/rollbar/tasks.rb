@@ -45,10 +45,6 @@ set :rollbar_local_username, %x[whoami].strip rescue nil
 # Sets a deployment comment (what was deployed, etc.).  Optional.
 set :rollbar_comment, nil
 
-# ### rollbar_debug
-# If true, enables verbosity in the notification to help debug issues.  Defaults to false.
-set :rollbar_debug, false
-
 # ### :rollbar_env
 # Sets the rollbar environment being deployed.  If left un-set, will default to `rails_env` value.
 set :rollbar_env, nil
