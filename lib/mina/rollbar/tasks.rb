@@ -65,7 +65,7 @@ namespace :rollbar do
     end
 
     uri      = URI.parse 'https://api.rollbar.com/api/1/deploy/'
-    revision = fetch(:commit) || %x[git rev-parse #{fetch(:branch)}].strip
+    revision = fetch(:commit) || %x[git rev-parse origin/#{fetch(:branch)}].strip
     params   = {
       local_username:   fetch(:rollbar_local_username),
       rollbar_username: fetch(:rollbar_username),
