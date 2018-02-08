@@ -20,6 +20,10 @@
 #       end
 #     end
 
+require 'net/http'
+require 'rubygems'
+require 'json'
+
 require 'mina/rails'
 
 # ## Settings
@@ -41,47 +45,53 @@ set :rollbar_local_username, %x[whoami].strip rescue nil
 # Sets a deployment comment (what was deployed, etc.).  Optional.
 set :rollbar_comment, nil
 
-# ### rollbar_notification_debug
-# If true, enables verbosity in the notification to help debug issues.  Defaults to false.
-set :rollbar_notification_debug, false
-
-# ### :rollbar_environment
+# ### :rollbar_env
 # Sets the rollbar environment being deployed.  If left un-set, will default to `rails_env` value.
-set :rollbar_environment, nil
+set :rollbar_env, nil
 
 namespace :rollbar do
 
   desc 'Notifies Rollbar of your deployment'
-  task notify: :environment do
+  task :notify do
 
     unless fetch(:rollbar_access_token)
-      print_error 'Must set your `:rollbar_access_token` to notify'
-      exit
+      print_error 'Rollbar: You must set `:rollbar_access_token` to notify'
+      next
     end
 
     unless set?(:branch) || set?(:commit)
-      print_error 'Must define either `:branch` or `:commit`'
-      exit
+      print_error 'Rollbar: Must set either `:branch` or `:commit`'
+      next
     end
 
-    revision = set?(:commit) ? fetch(:commit) : %x[git rev-parse #{fetch(:branch)}].strip
+    uri      = URI.parse 'https://api.rollbar.com/api/1/deploy/'
+    revision = fetch(:commit) || %x[git rev-parse origin/#{fetch(:branch)}].strip
+    params   = {
+      local_username:   fetch(:rollbar_local_username),
+      rollbar_username: fetch(:rollbar_username),
+      access_token:     fetch(:rollbar_access_token),
+      environment:      fetch(:rollbar_env) || fetch(:rollbar_environment) || fetch(:rails_env),
+      comment:          fetch(:rollbar_comment),
+      revision:         revision
+    }.reject { |_, value| value.nil? }
 
-    silent = fetch(:rollbar_notification_debug) ? '-v' : '-s -o /dev/null'
-    script = ["curl #{silent} https://api.rollbar.com/api/1/deploy/"]
-    script << "-F access_token=#{fetch(:rollbar_access_token)}"
-    if set?(:rollbar_environment)
-      script << "-F environment=#{fetch(:rollbar_environment)}"
-    else
-      script << "-F environment=#{fetch(:rails_env)}"
+    request      = Net::HTTP::Post.new(uri.request_uri)
+    request.body = ::JSON.dump(params)
+
+    begin
+      comment "Notifying Rollbar of deployment"
+
+      Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
+        response = http.request(request)
+
+        unless response.is_a?(Net::HTTPSuccess)
+          print_error "Rollbar: [#{response.code}] #{response.message}"
+        end
+      end
+
+    rescue StandardError => e
+      print_error "Rollbar: #{e.class} #{e.message}"
     end
-    script << "-F revision=#{revision}"
-    script << "-F local_username=#{fetch(:rollbar_local_username)}" if set?(:rollbar_local_username)
-    script << "-F rollbar_username=#{fetch(:rollbar_username)}" if set?(:rollbar_username)
-    script << "-F comment=#{set(:rollbar_comment)}" if set?(:rollbar_comment)
-
-    comment %{Notifying Rollbar of deployment}
-    command %[#{script.join(' ')}]
-
   end
 
 end

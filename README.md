@@ -20,8 +20,6 @@ And then execute:
 
 ## Usage
 
-**Note:** Currently requires `curl` to be present on the server for notifications to be sent.  Patches happily accepted to improve this limitation!
-
     require 'mina/rollbar'
 
     ...
@@ -41,14 +39,13 @@ And then execute:
 
 ## Options
 
-| Name                         | Description                                        |
-| ---------------------------- | -------------------------------------------------- |
-| `rollbar_access_token`       | Rollbar access token (post_server_item token)      |
-| `rollbar_username`           | Rollbar username of deploying user (optional)      |
-| `rollbar_local_username`     | Local username of deploying user (optional)        |
-| `rollbar_comment`            | Comment for this deployment (optional)             |
-| `rollbar_notification_debug` | `true` to enable notification debugging info       |
-| `rollbar_environment`        | Deployment environment string, defaults to `rails_env` |
+| Name                         | Description                                            |
+| ---------------------------- | ------------------------------------------------------ |
+| `rollbar_access_token`       | Rollbar access token (post_server_item token)          |
+| `rollbar_username`           | Rollbar username of deploying user (optional)          |
+| `rollbar_local_username`     | Local username of deploying user (optional)            |
+| `rollbar_comment`            | Comment for this deployment (optional)                 |
+| `rollbar_env`                | Deployment environment string, defaults to `rails_env` |
 
 ## Contributing
 
