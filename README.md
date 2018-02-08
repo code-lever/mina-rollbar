@@ -24,7 +24,7 @@ And then execute:
 
     ...
     # replace value w/your real access token
-    set :rollbar_access_token, '9a18d718214b4348822b7cec493f86d2'
+    set :rollbar_access_token, 'this-is-not-a-real-token'
 
     task deploy: :environment do
       deploy do
